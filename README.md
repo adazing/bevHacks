@@ -1,4 +1,4 @@
-#Prep
+# Prep
 First create virtual environment:
 ```
 python -m venv env
@@ -11,7 +11,7 @@ Windows: ```env\Scripts\activate```
 Install requirements:
 ```pip install -r requirements.txt```
 
-#Run
+# Run
 
 Make sure the virtual environment is activated:
 MacOS/Linux: ```source env/bin/activate```
