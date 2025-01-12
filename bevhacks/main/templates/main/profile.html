@@ -1,0 +1,128 @@
+{% extends 'main.html' %}
+
+{% block bodycontent %}
+<h1 style="color:#fff">{{institution.name}}</h1>
+<p style="color:#fff">{{institution.admission_rate}}</p>
+<p style="color:#fff">{{institution.address}}</p>
+{% if institution.home_page != "Not specified" %}
+<a href="https://{{institution.home_page}}" style="color:#fff">{{institution.home_page}}</a>
+{% endif %}
+<h1 style="color:#fff">SAT scores</h1>
+<p style="color:#fff">SAT English 25th Percentile: {{institution.satvr25}}</p>
+<p style="color:#fff">SAT English 50th Percentile: {{institution.satvr50}}</p>
+<p style="color:#fff">SAT English 75th Percentile: {{institution.satvr75}}</p>
+<br>
+<p style="color:#fff">SAT Math 25th Percentile: {{institution.satmt25}}</p>
+<p style="color:#fff">SAT Math 50th Percentile: {{institution.satmt50}}</p>
+<p style="color:#fff">SAT Math 75th Percentile: {{institution.satmt75}}</p>
+
+<h1 style="color:#fff">Tuition</h1>
+<p style="color:#fff">In-State Tuition: {{institution.tuition_fee_in}}</p>
+<p style="color:#fff">Out-of-State Tuition: {{institution.tuition_fee_out}}</p>
+{% if institution.np_curl != "Not specified" %}
+<a href="https://{{institution.np_curl}}" style="color:#fff">{{institution.np_curl}}</a>
+{% endif %}
+<br>
+
+<br><br>
+
+<br><br>
+
+<br><br>
+
+<br><br>
+
+<br>
+<div id="pie-chart"></div>
+<div id="ethnicity-pie-chart"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+
+  var data = [
+    {
+      values: [{{ institution.men }}, {{ institution.women }}], //diversity percentages
+      labels: ["Men", "Women"], //each type of community
+      type: "pie",
+      textinfo: "label+percent", 
+      hoverinfo: "label+percent", 
+      hole: 0.3, 
+      pull: [0.1, 0.1], // Corrected pull for two slices
+      marker: {
+        colors: ["#f1c40f", "#3498db"], 
+        line: { width: 3, color: "white" }, 
+      },
+    },
+  ];
+
+  var layout = {
+    title: "Diversity Distribution", // Updated title
+    titlefont: {
+      size: 30,
+      color: "white",
+      family: "Arial, sans-serif",
+    },
+    showlegend: true,
+    height: 500,
+    width: 1000,
+    paper_bgcolor: "#0e0b16", 
+    plot_bgcolor: "#0e0b16", 
+    margin: {
+      t: 50,
+      b: 50,
+      l: 50,
+      r: 50,
+    },
+    hoverlabel: {
+      bgcolor: "rgba(0, 0, 0, 0.7)",
+      font: { color: "white", size: 16 },
+    },
+  };
+
+  Plotly.newPlot("pie-chart", data, layout);
+</script>
+
+<script>
+
+  var data = [
+    {
+      values: [{{ institution.white }}, {{ institution.black }}, {{ institution.hispanic }}, {{institution.asian}}, {{institution.ai_an}}, {{institution.na_pi}}, {{institution.alien}}, {{institution.unknown}}], //diversity percentages
+      labels: ["White", "Black", "Hispanic", "Asian", "American Indian/Alaska Native", "Native Hawaiian/Pacific Islander", "2 or more races", "Unknown"], //each type of community
+      type: "pie",
+      textinfo: "label+percent", 
+      hoverinfo: "label+percent", 
+      hole: 0, 
+      pull: [0, 0], 
+      marker: {
+        colors: ["#e3c637", "#4b3196", "#2c31d9", "#d92cc4", "#dd7b8d", "#b37bdd", "#7bcbdd", "#7bdda5"], 
+        line: { width: 0, color: "white" }, 
+      },
+    },
+  ];
+
+  var layout = {
+    title: "Diversity Distribution", // Updated title
+    titlefont: {
+      size: 30,
+      color: "white",
+      family: "Arial, sans-serif",
+    },
+    showlegend: true,
+    height: 500,
+    width: 1000,
+    paper_bgcolor: "#0e0b16", 
+    plot_bgcolor: "#0e0b16", 
+    margin: {
+      t: 50,
+      b: 50,
+      l: 50,
+      r: 50,
+    },
+    hoverlabel: {
+      bgcolor: "#888e8b",
+      font: { color: "white", size: 16 },
+    },
+  };
+
+  Plotly.newPlot("ethnicity-pie-chart", data, layout);
+</script>
+{% endblock %}

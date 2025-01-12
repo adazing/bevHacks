@@ -1,0 +1,60 @@
+
+    <h1>3D Pie Chart</h1>
+    
+    <div id="pie-chart"></div>
+
+    <script>
+        {% if is_ethnicity_data %}
+        // Data for the pie chart
+        var data = [{
+            values: [30, 40, 30], // Yellow, Blue, Orange percentages
+            labels: ['Yellow', 'Blue', 'Orange'],
+            type: 'pie',
+            textinfo: 'label+percent',  // Show both label and percentage
+            hoverinfo: 'label+percent',  // Show percentage on hover
+            hole: 0.3, // Create a donut effect
+            pull: [0.1, 0.1, 0.1], // Slightly pull out slices for 3D effect
+            marker: {
+                colors: ['#f1c40f', '#3498db', '#e67e22'], // Bright, spacey colors
+                line: { width: 3, color: 'white' }  // Border for slices
+            }
+        }];
+
+        // Layout settings to si/Users/salomon/Desktop/Screenshot 2025-01-11 at 3.12.49 PM.png /Users/salomon/Desktop/Screenshot 2025-01-11 at 3.12.58 PM.pngmulate 3D
+        var layout = {
+            title: 'Space Color Distribution',
+            titlefont: {
+                size: 30,
+                color: 'white',
+                family: 'Arial, sans-serif'
+            },
+            showlegend: true,
+            height: 500,
+            width: 500,
+            paper_bgcolor: '#0e0b16', // Dark background (space theme)
+            plot_bgcolor: '#0e0b16', // Dark background (space theme)
+            margin: {
+                t: 50, b: 50, l: 50, r: 50
+            },
+            // 3D-like effect: Set "3D" aspect by giving depth to slices
+            scene: {
+                xaxis: { visible: false },
+                yaxis: { visible: false },
+                zaxis: { visible: false },
+                camera: {
+                    eye: { x: 0, y: 0, z: 1.5 }
+                }
+            },
+            // Adding glowing effect around the slices
+            hoverlabel: {
+                bgcolor: 'rgba(0, 0, 0, 0.7)',
+                font: { color: 'white', size: 16 }
+            }
+        };
+
+            // Render the pie chart in the div with id "pie-chart"
+            Plotly.newPlot('pie-chart', data, layout);
+
+    {% endif %}
+    </script>
+    

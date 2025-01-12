@@ -1,0 +1,137 @@
+{% extends 'main.html' %}
+{% block bodycontent %}
+<body>
+    <label for="autocomplete-input"></label>
+    <div style="text-align: center; margin-top: 50px; position: relative">
+      <input
+        type="text"
+        id="autocomplete-input"
+        placeholder="Type a school name"
+        oninput="filterOptions()"
+        style="
+          padding: 10px;
+          font-size: 16px;
+          border: 2px solid #4caf50;
+          border-radius: 5px;
+          width: 250px;
+          box-sizing: border-box;
+          margin-right: 10px;
+          outline: none;
+          transition: all 0.3s ease;
+        "
+        onfocus="this.style.borderColor = '#45a049';"
+        onblur="this.style.borderColor = '#4CAF50';"
+      />
+
+      <button
+        onclick="printInput()"
+        style="
+          padding: 10px 20px;
+          font-size: 16px;
+          color: white;
+          background-color: #4caf50;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        "
+        onmouseover="this.style.backgroundColor = '#45a049';"
+        onmouseout="this.style.backgroundColor = '#4CAF50';"
+      >
+        GO!!
+      </button>
+
+      <div id="search-result"></div>
+      <script>
+        {% comment %} const links = {
+          Apple: "https://www.example.com/fruit/apple",
+          Banana: "https://www.example.com/fruit/banana",
+          Cherry: "https://www.example.com/fruit/cherry",
+          Date: "https://www.example.com/fruit/date",
+          Elderberry: "https://www.example.com/fruit/elderberry",
+          Fig: "https://www.example.com/fruit/fig",
+          Grape: "https://www.example.com/fruit/grape",
+          Kiwi: "https://www.example.com/fruit/kiwi",
+          Lemon: "https://www.example.com/fruit/lemon",
+          Mango: "https://www.example.com/fruit/mango",
+          Orange: "https://www.example.com/fruit/orange",
+          Papaya: "https://www.example.com/fruit/papaya",
+          Peach: "https://www.example.com/fruit/peach",
+          Plum: "https://www.example.com/fruit/plum",
+          Pineapple: "https://www.example.com/fruit/pineapple",
+          Raspberry: "https://www.example.com/fruit/raspberry",
+          Strawberry: "https://www.example.com/fruit/strawberry",
+          Tangerine: "https://www.example.com/fruit/tangerine",
+          Watermelon: "https://www.example.com/fruit/watermelon",
+        }; {% endcomment %}
+        const links = JSON.parse('{{ results|escapejs }}');
+
+
+        function printInput() {
+          const a = document.getElementById("search-result");
+          const inputValue =
+            document.getElementById("autocomplete-input").value;
+          window.location.href = links[inputValue]; 
+        }
+      </script>
+
+      <div
+        id="dropdown"
+        style="
+          display: none;
+          position: absolute;
+          max-height: 200px;
+          overflow-y: auto;
+          width: 250px; /* Set the width of the dropdown to match the input */
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 5px;
+          background-color: white;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        "
+      ></div>
+    </div>
+
+    <script>
+      const schools = Object.keys(links);
+
+      const input = document.getElementById("autocomplete-input");
+      const dropdown = document.getElementById("dropdown");
+
+      let filteredSchools = [];
+
+      function filterOptions() {
+        const query = input.value.toLowerCase();
+        dropdown.innerHTML = "";
+        if (query === "") {
+          dropdown.style.display = "none";
+          return;
+        }
+
+        filteredSchools = schools.filter((school) =>
+          school.toLowerCase().includes(query)
+        );
+
+        filteredSchools.forEach((school) => {
+          const option = document.createElement("div");
+          option.textContent = school;
+          option.onclick = function () {
+            input.value = school;
+            dropdown.style.display = "none";
+          };
+          dropdown.appendChild(option);
+        });
+
+        dropdown.style.display = filteredSchools.length > 0 ? "block" : "none";
+      }
+
+      document.addEventListener("click", function (event) {
+        if (!dropdown.contains(event.target) && event.target !== input) {
+          dropdown.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+{% endblock %}

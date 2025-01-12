@@ -1,0 +1,236 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link rel="stylesheet" href="">
+        {% block headercontent %}
+        {% endblock %}
+        <style>
+            html,
+body {
+ margin: 0;
+ padding: 0;
+ height: 100%;
+}
+
+
+.home-container {
+ position: relative;
+ background-image: url("{% static 'images/kys.png'%}");
+ background-size: cover;
+ background-position: center center;
+ height: 100vh;
+ color: white;
+ padding: 20px;
+}
+
+
+.home-container .content {
+ position: relative;
+ z-index: 2;
+ padding: 40px;
+ text-align: center;
+}
+
+
+h1 {
+ font-size: 50px;
+ margin-bottom: 10px;
+}
+
+
+.intro-text {
+ font-size: 20px;
+ font-family: "Roboto", sans-serif;
+ margin-bottom: 30px;
+ line-height: 1.5;
+ letter-spacing: 0.5px;
+}
+
+
+.cta-btn {
+ padding: 15px 30px;
+ font-size: 18px;
+ background-color: #007bff;
+ color: white;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+}
+
+
+.cta-btn:hover {
+ background-color: #0056b3;
+}
+
+
+.button-description {
+ margin-top: 20px;
+ font-size: 16px;
+}
+
+
+.tabs {
+ display: flex;
+ justify-content: center;
+ list-style: none;
+ padding: 10px;
+ background-color: #333;
+ margin: 0;
+}
+
+
+.tabs li {
+ margin-right: 20px;
+}
+
+
+.tabs .tab-link {
+ text-decoration: none;
+ color: white;
+ padding: 10px 20px;
+ font-size: 18px;
+ display: inline-block;
+}
+
+
+.tabs .tab-link.active {
+ border-bottom: 3px solid #007bff;
+}
+
+
+.tab-content {
+ padding: 20px;
+}
+
+
+.tab-pane {
+ display: none;
+}
+
+
+.tab-pane.active {
+ display: block;
+}
+
+
+.boxes-container {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 30px;
+ gap: 20px;
+}
+
+
+.box {
+ width: 32%;
+ padding: 30px;
+ background-color: rgba(255, 255, 255, 0.9);
+ margin: 10px;
+ border-radius: 10px;
+ box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+ text-align: left;
+ position: relative;
+ overflow: hidden;
+}
+
+
+.box h3 {
+ font-size: 24px;
+ margin-bottom: 20px;
+ font-weight: bold;
+}
+
+
+.box p {
+ font-size: 16px;
+ color: #333;
+ line-height: 1.6;
+ margin-bottom: 10px;
+}
+
+
+.box::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ border: 3px solid #007bff;
+ border-radius: 10px;
+ pointer-events: none;
+}
+
+
+@media (max-width: 1200px) {
+ .box {
+   width: 48%;
+ }
+}
+
+
+@media (max-width: 768px) {
+ .box {
+   width: 100%;
+ }
+}
+
+
+.image-container {
+ position: relative;
+ width: 300px;
+ height: 300px;
+ margin: 50px auto;
+ transition: transform 0.3s ease;
+}
+
+
+#profileImage {
+ width: 100%;
+ height: 100%;
+ border-radius: 50%;
+ object-fit: cover;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ transition: transform 0.3s ease-in-out;
+}
+
+
+#profileImage:hover {
+ border: 5px solid yellow;
+}
+
+
+#profileImage {
+ transition: transform 0.3s ease-in-out;
+}
+
+        </style>
+    </head>
+    <body style="background-color: #0e0b16;">
+        <nav>
+            <ul class="tabs">
+              <li><a href="{% url 'home' %}" class="tab-link">Home</a></li>
+              <li><a href="{% url 'search' %}" class="tab-link">Search</a></li>
+              <li><a href="{% url 'about' %}" class="tab-link">About</a></li>
+            </ul>
+          </nav>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        {% block bodycontent %}
+        {% endblock %}
+        <script src="" async defer></script>
+    </body>
+</html>
